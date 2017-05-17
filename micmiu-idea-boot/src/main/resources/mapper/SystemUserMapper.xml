@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springframe.mapper.SystemUserMapper">
+  <resultMap id="BaseResultMap" type="org.springframe.domain.SystemUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+    <result column="account_non_expired" jdbcType="BIT" property="accountNonExpired" />
+    <result column="account_non_locked" jdbcType="BIT" property="accountNonLocked" />
+    <result column="credentials_non_expired" jdbcType="BIT" property="credentialsNonExpired" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="last_time" jdbcType="TIMESTAMP" property="lastTime" />
+    <result column="attempts" jdbcType="INTEGER" property="attempts" />
+  </resultMap>
+
+
+  <!--根据用户名查询-->
+  <select id="loadByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT * FROM SYSTEM_USER WHERE USERNAME = #{username};
+  </select>
+
+  <!--查询不分页-->
+  <select id="getList" resultMap="BaseResultMap" parameterType="org.springframe.domain.SystemUser">
+    SELECT * FROM SYSTEM_USER WHERE 1=1
+    <if test="username != null and username != '' ">
+      AND USERNAME LIKE concat('%',#{username},'%')
+    </if>
+
+    <if test="phone != null and phone != '' ">
+      AND PHONE LIKE concat('%',#{phone},'%')
+    </if>
+  </select>
+
+</mapper>

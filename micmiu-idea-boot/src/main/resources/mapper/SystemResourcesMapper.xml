@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springframe.mapper.SystemResourcesMapper">
+  <resultMap id="BaseResultMap" type="org.springframe.domain.SystemResources">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="action" jdbcType="CHAR" property="action" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="authc" jdbcType="VARCHAR" property="authc" />
+    <result column="descritpion" jdbcType="VARCHAR" property="descritpion" />
+    <result column="clazz" jdbcType="VARCHAR" property="clazz" />
+  </resultMap>
+  
+  
+  <select id="loadByRole" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT S.* FROM SYSTEM_RESOURCES S,SYSTEM_ROLE_RESOURCE RS
+    WHERE RS.SYSTEM_RESOURCE_ID = S.ID
+    AND RS.SYSTEM_ROLE_ID = #{id};
+  </select>
+  
+  
+  <select id="loadByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT T2.* FROM SYSTEM_RESOURCES T1
+    LEFT JOIN SYSTEM_RESOURCES AS T2
+    ON T2.PARENT_ID = T1.ID
+    WHERE T1.ID= #{id};
+  </select>
+
+  <select id="getList" resultMap="BaseResultMap">
+    SELECT AUTHC,URL FROM SYSTEM_RESOURCES;
+  </select>
+
+</mapper>
