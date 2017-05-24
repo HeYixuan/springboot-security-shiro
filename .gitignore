@@ -9,6 +9,7 @@
 *.ear
 
 .gradle/  
+gradle/ 
 build/
 target/
 /build
